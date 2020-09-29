@@ -5,16 +5,16 @@ const sound_win = new Audio("sound/game_win.mp3");
 const sound_lose = new Audio("sound/alert.wav");
 
 const game_field = document.querySelector(".game_field");
-const playBtn = document.querySelector(".game_util i");
-const volume = document.querySelector(".volume");
 const game_time = document.querySelector(".game_time");
 const game_message = document.querySelector(".game_message");
 const game_messageText = document.querySelector(".game_message p");
 const carrot_num = document.querySelector(".carrot_num");
+const playBtn = document.querySelector(".game_util i");
 const replayBtn = document.querySelector(".fa-redo");
+const volume = document.querySelector(".volume");
 
+let volumeon = 0;
 let timer;
-
 let time_set = 10;
 let min = "";
 let sec = "";
@@ -29,9 +29,6 @@ function setTimer() {
     game_time.textContent = `${min} : ${sec}`;
     time_set--;
 
-// 시간 초과했을 때
-// 겜끝
-// 짐 박스 보이기
     if (time_set < 0) {
         game_time.textContent = "시간초과";
         sound_lose.play();
@@ -41,11 +38,6 @@ function setTimer() {
     }
 }
 
-// *** 게임시작
-// 정지버튼으로 변경
-// 타이머시작
-// 당근숫자 카운트 시작
-// 당근벌레 랜덤배치
 function fn_gameStart() {
     playBtn.classList.remove("fa-play");
     playBtn.classList.add("fa-square");
@@ -74,25 +66,20 @@ function fn_gameStart() {
     }
 }
 
-// *** 게임끝
-// 시간멈추기
 function fn_gameEnd() {
     playBtn.classList.remove("fa-square");
     clearInterval(timer);
     time_set = 10;
 }
 
-// 당근/벌레 클릭시
+// carrot/bug clicked
 game_field.addEventListener("click",(e)=>{
-   console.log(e.target); 
    if (!e.target.classList.contains("item")) {
        return;
    }
-// 벌레 클릭했을 때
-// 겜끝
-// 짐 박스 보이기
+
    if (e.target.classList.contains("bug")) {
-        sound_lose.play();
+        sound_bugPull.play();
         fn_gameEnd();
         game_messageText.innerText = "You Lose!💣💥";
         game_message.classList.remove("hide");
@@ -102,9 +89,6 @@ game_field.addEventListener("click",(e)=>{
         carrot_num.innerText = carrot_numUd;
         game_field.removeChild(e.target);
 
-// 모든 당근 클릭했을 때
-// 겜끝
-// 이긴 박스 보이기
         if (carrot_numUd === 0) {
             sound_win.play();
             fn_gameEnd();
@@ -114,34 +98,27 @@ game_field.addEventListener("click",(e)=>{
    }
 })
 
-// *** 게임시작/종료버튼클릭
+// game start/end button
 playBtn.addEventListener("click",()=>{
     if (playBtn.classList.contains("fa-play")) {
         fn_gameStart();
     } else if (playBtn.classList.contains("fa-square")) {
-// 정지버튼 클릭했을 때
-// 겜끝
-// 리플레이 박스 보이기
-        sound_bugPull.play();
+        sound_lose.play();
         fn_gameEnd();
         game_messageText.innerText = "Replay👻❓";
         game_message.classList.remove("hide");
     }
 })
 
-// 리플레이함수
-// 겜끝
-// 게임 다시 시작(재생버튼 클릭)
 replayBtn.addEventListener("click",()=>{
     game_message.classList.add("hide");
     game_field.innerText="";
     fn_gameStart();
 })
 
-// 1. bgm
+// bgm
 sound_bgm.play();
 
-// 무한반복재생
 sound_bgm.addEventListener("ended", ()=>{
     this.currentTime = 0;
     this.play();
@@ -150,5 +127,12 @@ sound_bgm.addEventListener("ended", ()=>{
 volume.addEventListener("click", ()=>{
     volume.childNodes[1].classList.toggle("hide");
     volume.childNodes[3].classList.toggle("hide");
+    if (volumeon == 1) {
+        sound_bgm.play();
+        volumeon = 0;
+    } else if (volumeon == 0) {
+        sound_bgm.pause();
+        volumeon = 1;
+    }
 });
 
