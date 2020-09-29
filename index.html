@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>당근뽑기 게임</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/51005d41ce.js" crossorigin="anonymous"></script>
+    <script src="main.js" defer></script>
+</head>
+<body>
+    <section class="game_wrap">
+        <div class="game_util">
+            <i class="fas fa-play"></i>
+            <p class="game_time">00 : 00</p>
+            <p class="carrot_num">0</p>
+        </div>
+        <div class="game_field">
+            <!-- <img src="img/bug.png" alt="벌레" class="item bug"> -->
+            <!-- <img src="img/carrot.png" alt="당근" class="item carrot"> -->
+        </div>
+        <div class="volume">
+            <i class="fas fa-volume-up" onclick="sound_bgm.pause();"></i>
+            <i class="fas fa-volume-mute hide" onclick="sound_bgm.play();"></i>
+        </div>
+        <div class="game_message hide">
+            <i class="fas fa-redo"></i>
+            <p></p>
+            <!-- <p>You Win!🥳🎉</p> -->
+            <!-- <p>You Lose!💣💥</p> -->
+            <!-- <p>Replay👻❓</p> -->
+        </div>
+    </section>
+</body>
+</html>
