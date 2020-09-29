@@ -1,17 +1,18 @@
 * {margin: 0; padding: 0;}
 body {background:#333;}
 .hide {display:none;}
-.game_wrap {position:relative; margin:60px auto 0; padding-top:20px; width:142vh; height:80vh; background:center/cover no-repeat url("img/background.png");}
+.game_wrap {position:relative; margin:60px auto 0; padding-top:20px; width:720px; height:405px; background:center/cover no-repeat url("img/background.png");}
 .volume {position: absolute; top:10px; right:14px; width:36px; height:36px; background:rgba(51, 51, 51, 0.418); border-radius:100%; text-align: center; font-size:1.2rem; line-height: 34px; color:rgba(255, 255, 255, 0.733); cursor: pointer;}
 .volume .hide {display:none;}
 
-.game_util {margin:auto; width:30vh; background:rgba(255,255,255,0.5); border:2px solid #fff; border-radius: 20px; text-align: center;}
+.game_util {margin:auto; width:210px; background:rgba(255,255,255,0.5); border:2px solid #fff; border-radius: 20px; text-align: center;}
 .game_util i {padding:30px 0 15px; font-size:2rem; cursor: pointer;}
 .game_util .game_time {font-size:1.2rem;}
 .game_util .carrot_num {margin:10px auto 15px; width:44px; height:44px; background:rgb(248, 126, 26); border-radius: 100%; font-size:1.2rem; font-weight: bold; line-height:40px; color:rgb(250, 252, 229);}
 
-.game_field {margin:6% 0; height:50%; }
-.game_field .item {width:5%; cursor: pointer;}
+.game_field {position:relative; margin:60px 0; height:196px;}
+.game_field .item {position: absolute; cursor: pointer;}
+.game_field .carrot {width:50px;}
 
 .game_message {position: absolute; top:60%; left:50%; transform:translate(-50%); padding:30px 0; width:30%; height:120px; background:rgba(0,0,0,0.8); border-radius: 20px; text-align: center; box-sizing: border-box;}
 .game_message .fa-redo {font-size:1.6rem; cursor: pointer; color:#fff;}

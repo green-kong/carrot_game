@@ -45,13 +45,15 @@ function fn_gameStart() {
     setTimer();
     timer = setInterval(setTimer, 1000);
 
-    for (i=1; i<21; i++) {
+    for (i=1; i<7; i++) {
         let appendData = document.createElement("img");
         appendData.setAttribute("src","img/bug.png");
         appendData.setAttribute("class","item bug");
-        const dx = Math.random() * 100;
-        const dy = Math.random() * 150;
-        appendData.style.transform = `translate(${dx}px,${dy}px)`;
+        const dx = Math.random() * 670;
+        const dy = Math.random() * 120;
+        console.log(dx,dy);
+        appendData.style.left = `${dx}px`;
+        appendData.style.top = `${dy}px`;
         game_field.append(appendData);
     }
     
@@ -59,9 +61,10 @@ function fn_gameStart() {
         let appendData = document.createElement("img");
         appendData.setAttribute("src","img/carrot.png");
         appendData.setAttribute("class","item carrot");
-        const dx = Math.random() * 320;
-        const dy = Math.random() * 180;
-        appendData.style.transform = `translate(${dx}px,${dy}px)`;
+        const dx = Math.random() * 670;
+        const dy = Math.random() * 120;
+        appendData.style.left = `${dx}px`;
+        appendData.style.top = `${dy}px`;
         game_field.append(appendData);
     }
 }
