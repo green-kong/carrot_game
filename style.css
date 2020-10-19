@@ -10,9 +10,9 @@ body {background:#333;}
 .game_util .game_time {font-size:1.2rem;}
 .game_util .carrot_num {margin:10px auto 15px; width:44px; height:44px; background:rgb(248, 126, 26); border-radius: 100%; font-size:1.2rem; font-weight: bold; line-height:40px; color:rgb(250, 252, 229);}
 
-.game_field {position:relative; margin:60px 0; height:196px;}
-.game_field .item {position: absolute; cursor: pointer;}
-.game_field .carrot {width:50px;}
+.game_field {position:relative; margin:50px 0; height:180px;}
+.game_field .item {position: absolute; cursor: pointer; transition: .2s;}
+.game_field .item:hover {transform: scale(1.1);}
 
 .game_message {position: absolute; top:60%; left:50%; transform:translate(-50%); padding:30px 0; width:30%; height:120px; background:rgba(0,0,0,0.8); border-radius: 20px; text-align: center; box-sizing: border-box;}
 .game_message .fa-redo {font-size:1.6rem; cursor: pointer; color:#fff;}
