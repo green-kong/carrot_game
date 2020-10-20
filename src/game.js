@@ -1,5 +1,5 @@
 'use strict';
-import Field from './field.js';
+import { Field, ItemType } from './field.js';
 import * as sound from './sound.js';
 
 export const Reason = Object.freeze({
@@ -87,9 +87,9 @@ class Game {
     if (!this.started) {
       return;
     }
-    if (item === 'bug') {
+    if (item === ItemType.bug) {
       this.stop(Reason.lose);
-    } else if (item === 'carrot') {
+    } else if (item === ItemType.carrot) {
       sound.playCarrot();
       this.score++;
       this.updateScoreBoard();
