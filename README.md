@@ -10,4 +10,6 @@
   + my_carrot_game : 혼자 만든 초기 버전   
 
 
-https://chachacha912.github.io/carrot_game/
+https://chachacha912.github.io/carrot_game/   
+
+<img src='https://user-images.githubusercontent.com/67041124/96550148-77b69100-12eb-11eb-9bb2-0793d6ded51f.JPG'>
