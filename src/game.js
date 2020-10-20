@@ -2,7 +2,36 @@
 import Field from './field.js';
 import * as sound from './sound.js';
 
-export default class Game {
+// Builder Pattern
+export default class GameBuilder {
+  // builder 클래스의 함수는 builder 오브젝트 자체를 리턴하기 때문에
+  // 일반적인 setter함수와 구분하기 위해 with* (add* set*) 을 붙여서 쓴다
+  withGameDuration(duration) {
+    this.gameDuration = duration;
+    return this; // array처럼 class자체를 다시 리턴하여 chaining가능하도록
+  }
+
+  withCarrotCount(num) {
+    this.carrotCount = num;
+    return this;
+  }
+
+  withBugCount(num) {
+    this.bugCount = num;
+    return this;
+  }
+
+  build() {
+    console.log(this);
+    return new Game(
+      this.gameDuration, //
+      this.carrotCount,
+      this.bugCount
+    );
+  }
+}
+
+class Game {
   constructor(gameDuration, carrotCount, bugCount) {
     this.gameDuration = gameDuration;
     this.carrotCount = carrotCount;
