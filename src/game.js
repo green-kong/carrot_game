@@ -2,8 +2,14 @@
 import Field from './field.js';
 import * as sound from './sound.js';
 
+export const Reason = Object.freeze({
+  win: 'win',
+  lose: 'lose',
+  cancel: 'cancel',
+});
+
 // Builder Pattern
-export default class GameBuilder {
+export class GameBuilder {
   // builder 클래스의 함수는 builder 오브젝트 자체를 리턴하기 때문에
   // 일반적인 setter함수와 구분하기 위해 with* (add* set*) 을 붙여서 쓴다
   withGameDuration(duration) {
@@ -75,7 +81,7 @@ class Game {
     sound.playAlert();
     this.stopGameTimer();
     this.hideGameButton();
-    this.onGameStop && this.onGameStop('cancel');
+    this.onGameStop && this.onGameStop(Reason.cancel);
   }
 
   finish(win) {
@@ -88,7 +94,7 @@ class Game {
     }
     this.stopGameTimer();
     sound.stopBg();
-    this.onGameStop && this.onGameStop(win ? 'win' : 'lose');
+    this.onGameStop && this.onGameStop(win ? Reason.win : Reason.lose);
   }
 
   onItemClick = (item) => {

@@ -1,7 +1,7 @@
 'use strict';
 
 import PopUp from './popup.js';
-import GameBuilder from './game.js';
+import { GameBuilder, Reason } from './game.js';
 
 // 생성자 인자가 3개이상 될 경우 3,2,2로 쓰는거 비추(알아보기 힘듬)
 // const game = new Game(3, 2, 2);
@@ -17,13 +17,13 @@ game.setGameStopListener((reason) => {
   console.log(reason);
   let message;
   switch (reason) {
-    case 'cancel':
+    case Reason.cancel:
       message = 'Replay👻❓';
       break;
-    case 'win':
+    case Reason.win:
       message = 'You Win!🥳🎉';
       break;
-    case 'lose':
+    case Reason.lose:
       message = 'You Lose!💣💥';
       break;
     default:
