@@ -49,7 +49,7 @@ class Game {
 
     this.gameBtn.addEventListener('click', () => {
       if (this.started) {
-        this.stop();
+        this.stop(Reason.cancel);
       } else {
         this.start();
       }
@@ -75,26 +75,12 @@ class Game {
     sound.playBg();
   }
 
-  stop() {
+  stop(reason) {
     this.started = false;
     sound.stopBg();
-    sound.playAlert();
     this.stopGameTimer();
     this.hideGameButton();
-    this.onGameStop && this.onGameStop(Reason.cancel);
-  }
-
-  finish(win) {
-    this.started = false;
-    this.hideGameButton();
-    if (win) {
-      sound.playWin();
-    } else {
-      sound.playBug();
-    }
-    this.stopGameTimer();
-    sound.stopBg();
-    this.onGameStop && this.onGameStop(win ? Reason.win : Reason.lose);
+    this.onGameStop && this.onGameStop(reason);
   }
 
   onItemClick = (item) => {
@@ -102,13 +88,13 @@ class Game {
       return;
     }
     if (item === 'bug') {
-      this.finish(false);
+      this.stop(Reason.lose);
     } else if (item === 'carrot') {
       sound.playCarrot();
       this.score++;
       this.updateScoreBoard();
       if (this.score === this.carrotCount) {
-        this.finish(true);
+        this.stop(Reason.win);
       }
     }
   };
@@ -120,7 +106,7 @@ class Game {
       if (remainingTimeSec <= 1) {
         this.gameTimer.textContent = '시간초과';
         clearInterval(this.timer);
-        this.finish(this.carrotCount === this.score);
+        this.stop(this.carrotCount === this.score ? Reason.win : Reason.lose);
         return;
       }
       this.updateTimerText(--remainingTimeSec);
