@@ -14,7 +14,7 @@ export class Field {
     this.bugCount = bugCount;
     this.field = document.querySelector('.game_field');
     this.fieldRect = this.field.getBoundingClientRect();
-    this.field.addEventListener('click', this.onClick);
+    this.field.addEventListener('click', this.onFieldClickListener);
   }
 
   init() {
@@ -46,7 +46,10 @@ export class Field {
     }
   }
 
-  onClick = (event) => {
+  // bind하는 또다른 방법
+  // this.onFieldClickListener = this.onFieldClickListener.bind(this);
+  // onFieldClickListener(event) {}
+  onFieldClickListener = (event) => {
     const target = event.target;
     if (target.matches('.bug')) {
       this.onItemClick && this.onItemClick(ItemType.bug);

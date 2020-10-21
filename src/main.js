@@ -1,7 +1,6 @@
 'use strict';
 
 import PopUp from './popup.js';
-import * as sound from './sound.js';
 import { GameBuilder, Reason } from './game.js';
 
 // 생성자 인자가 3개이상 될 경우 3,2,2로 쓰는거 비추(알아보기 힘듬)
@@ -20,15 +19,12 @@ game.setGameStopListener((reason) => {
   switch (reason) {
     case Reason.cancel:
       message = 'Replay👻❓';
-      sound.playAlert();
       break;
     case Reason.win:
       message = 'You Win!🥳🎉';
-      sound.playWin();
       break;
     case Reason.lose:
       message = 'You Lose!💣💥';
-      sound.playBug();
       break;
     default:
       throw new Error('not valid reason');

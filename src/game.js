@@ -2,12 +2,6 @@
 import { Field, ItemType } from './field.js';
 import * as sound from './sound.js';
 
-export const Reason = Object.freeze({
-  win: 'win',
-  lose: 'lose',
-  cancel: 'cancel',
-});
-
 // Builder Pattern
 export class GameBuilder {
   // builder 클래스의 함수는 builder 오브젝트 자체를 리턴하기 때문에
@@ -37,12 +31,20 @@ export class GameBuilder {
   }
 }
 
+export const Reason = Object.freeze({
+  win: 'win',
+  lose: 'lose',
+  cancel: 'cancel',
+});
+
 class Game {
   constructor(gameDuration, carrotCount, bugCount) {
     this.gameDuration = gameDuration;
     this.carrotCount = carrotCount;
     this.bugCount = bugCount;
 
+    this.field = new Field(this.carrotCount, this.bugCount);
+    this.field.setClickListener(this.onItemClick);
     this.gameBtn = document.querySelector('.game_util i');
     this.gameTimer = document.querySelector('.game_time');
     this.gameScore = document.querySelector('.carrot_num');
@@ -50,13 +52,11 @@ class Game {
     this.gameBtn.addEventListener('click', () => {
       if (this.started) {
         this.stop(Reason.cancel);
+        sound.playAlert();
       } else {
         this.start();
       }
     });
-
-    this.field = new Field(this.carrotCount, this.bugCount);
-    this.field.setClickListener(this.onItemClick);
 
     this.started = false;
     this.timer = undefined;
@@ -80,7 +80,18 @@ class Game {
     sound.stopBg();
     this.stopGameTimer();
     this.hideGameButton();
+    if (reason === Reason.win) {
+      sound.playWin();
+    } else if (reason === Reason.lose) {
+      sound.playBug();
+    }
     this.onGameStop && this.onGameStop(reason);
+  }
+
+  initGame() {
+    this.score = 0;
+    this.gameScore.textContent = this.carrotCount;
+    this.field.init();
   }
 
   onItemClick = (item) => {
@@ -117,14 +128,8 @@ class Game {
     clearInterval(this.timer);
   }
 
-  updateTimerText(time) {
-    let min = parseInt(time / 60);
-    let sec = time % 60;
-
-    if (min < 10) min = '0' + min;
-    if (sec < 10) sec = '0' + sec;
-
-    this.gameTimer.textContent = `${min} : ${sec}`;
+  updateScoreBoard() {
+    this.gameScore.innerText = this.carrotCount - this.score;
   }
 
   showStopButton() {
@@ -136,13 +141,13 @@ class Game {
     this.gameBtn.classList.remove('fa-square');
   }
 
-  initGame() {
-    this.score = 0;
-    this.gameScore.textContent = this.carrotCount;
-    this.field.init();
-  }
+  updateTimerText(time) {
+    let min = parseInt(time / 60);
+    let sec = time % 60;
 
-  updateScoreBoard() {
-    this.gameScore.innerText = this.carrotCount - this.score;
+    if (min < 10) min = '0' + min;
+    if (sec < 10) sec = '0' + sec;
+
+    this.gameTimer.textContent = `${min} : ${sec}`;
   }
 }
